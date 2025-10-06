@@ -43,7 +43,11 @@ if (isset($_POST['action'])) {
 
       $id = $_POST['id'];
       if(is_numeric($id)) {
-        $updateQuery = ''; // IMPLEMENT ME
+        if(is_numeric($id) && $id>0){
+          $updateQuery = 'UPDATE todo SET done = 1 - done WHERE id = ' . intval($id);
+          // Deletes 1 from boolean 'done', allowing to toggle state. 
+          // Intval checks that $id is of type int, avoiding SQL injections.
+        } 
         if(!$db->query($updateQuery)) {
           die(print_r($db->errorInfo(), true));
         }
@@ -51,6 +55,7 @@ if (isset($_POST['action'])) {
 
       header('Location: '.BASE_URL);
       die();
+      break;
 
     /**
      * Delete a task, then redirect to the base URL.
@@ -72,6 +77,7 @@ if (isset($_POST['action'])) {
       break;
   }
 }
+
 
 /**
  * Select all tasks from the database.
