@@ -55,7 +55,6 @@ if (isset($_POST['action'])) {
 
       header('Location: '.BASE_URL);
       die();
-      break;
 
     /**
      * Delete a task, then redirect to the base URL.
